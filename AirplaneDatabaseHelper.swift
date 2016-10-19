@@ -11,11 +11,11 @@ import MapKit
 
 class AirplaneDatabaseHelper: NSObject {
     
-    var db : COpaquePointer = nil
+    var db : OpaquePointer? = nil
     
     
     override init() {
-        let path = NSBundle.mainBundle().pathForResource("airports", ofType: "sqlite");
+        let path = Bundle.main.path(forResource: "airports", ofType: "sqlite");
         
         if sqlite3_open(path!, &db) != SQLITE_OK {
             print("error opening airports database")
@@ -23,19 +23,19 @@ class AirplaneDatabaseHelper: NSObject {
     }
     
     // Perform query
-    func getInfoWithISOCountry(countryCode : String) -> [Airport]? {
+    func getInfoWithISOCountry(_ countryCode : String) -> [Airport]? {
         
         var airports = [Airport]()
         
-        let query = "SELECT * FROM airports WHERE iso_country = \"\(countryCode.uppercaseString)\""
+        let query = "SELECT * FROM airports WHERE iso_country = \"\(countryCode.uppercased())\""
         //let query = "SELECT * FROM airports"
         
         // Prepare query and execute
-        var statement : COpaquePointer = nil
+        var statement : OpaquePointer? = nil
         if sqlite3_prepare_v2(db, query, -1, &statement, nil) != SQLITE_OK {
-            let errmsg = String.fromCString(sqlite3_errmsg(db))
+            let errmsg = String(cString: sqlite3_errmsg(db))
             print("error query: \(errmsg)")
-            return .None
+            return .none
         }
         
         // Convert results to objects
@@ -43,8 +43,9 @@ class AirplaneDatabaseHelper: NSObject {
             let airport = Airport();
             
             // ICAO code and naming
-            airport.icao = String.fromCString(UnsafePointer<Int8>(sqlite3_column_text(statement, 0)));
-            airport.name = String.fromCString(UnsafePointer<Int8>(sqlite3_column_text(statement, 1)));
+            airport.icao = String(cString:sqlite3_column_text(statement, 0));
+            
+            airport.name = String(cString:sqlite3_column_text(statement, 1));
             
             // GPS coordinates
             let longitude : CLLocationDegrees = sqlite3_value_double(sqlite3_column_value(statement, 2))
@@ -53,8 +54,8 @@ class AirplaneDatabaseHelper: NSObject {
             airport.elevation = sqlite3_value_double(sqlite3_column_value(statement, 4))
             
             // Country and city
-            airport.iso_country = String.fromCString(UnsafePointer<Int8>(sqlite3_column_text(statement, 5)));
-            airport.municipality = String.fromCString(UnsafePointer<Int8>(sqlite3_column_text(statement, 6)));
+            airport.iso_country = String(cString: sqlite3_column_text(statement, 5));
+            airport.municipality = String(cString: sqlite3_column_text(statement, 6));
             
             print(airport.municipality)
             

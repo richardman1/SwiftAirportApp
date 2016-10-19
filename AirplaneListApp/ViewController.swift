@@ -35,33 +35,33 @@ class ViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if searchController.active && searchController.searchBar.text != "" {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.isActive && searchController.searchBar.text != "" {
             return filteredAirports.count
         }
         return tableData.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("airportCell", forIndexPath: indexPath) as! airportCellView
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "airportCell", for: indexPath) as! airportCellView
         let airport: Airport
-        if searchController.active && searchController.searchBar.text != "" {
-            airport = filteredAirports[indexPath.row]
+        if searchController.isActive && searchController.searchBar.text != "" {
+            airport = filteredAirports[(indexPath as NSIndexPath).row]
         } else {
-            airport = tableData[indexPath.row]
+            airport = tableData[(indexPath as NSIndexPath).row]
         }
         cell.icaoLabel?.text = airport.icao
         cell.muniLabel?.text = airport.municipality
         return cell
     }
     
-    func filterContentForSearchText(searchText: String, scope: String = "All"){
+    func filterContentForSearchText(_ searchText: String, scope: String = "All"){
         filteredAirports = tableData.filter{ airport in
-            return (airport.icao?.lowercaseString.containsString(searchText.lowercaseString))!
+            return (airport.icao?.lowercased().contains(searchText.lowercased()))!
         }
         tableView.reloadData()
     }
@@ -69,7 +69,7 @@ class ViewController: UITableViewController {
 }
 
 extension ViewController: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
+    func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
 }
