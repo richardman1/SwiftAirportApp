@@ -72,4 +72,25 @@ extension ViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?){
+        //check if segue is handled
+        if(segue.identifier == "airportDetail"){
+            //get destination controller
+            if let destination = segue.destination as? AirportDetailViewController{
+                //get selected row and lookup selected person in array
+                if let indexPath = self.tableView.indexPathForSelectedRow{
+                    //Pass person to detailed view
+                    let airport : Airport
+                    if searchController.isActive && searchController.searchBar.text != "" {
+                         airport = filteredAirports[(indexPath as NSIndexPath).row]
+                    } else {
+                       airport = tableData[(indexPath as NSIndexPath).row]
+                    }
+
+                    destination.airport = airport;
+                }
+            }
+        }
+    }
 }

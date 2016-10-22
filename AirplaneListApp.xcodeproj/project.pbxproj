@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		949AC5321DBB9B2F00BBAC09 /* AirportDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AC5311DBB9B2F00BBAC09 /* AirportDetailViewController.swift */; };
 		9DC9AEDF1D8AAF52008F9A5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9AEDE1D8AAF52008F9A5C /* AppDelegate.swift */; };
 		9DC9AEE11D8AAF52008F9A5C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9AEE01D8AAF52008F9A5C /* ViewController.swift */; };
 		9DC9AEE41D8AAF52008F9A5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9DC9AEE21D8AAF52008F9A5C /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		949AC5311DBB9B2F00BBAC09 /* AirportDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirportDetailViewController.swift; sourceTree = "<group>"; };
 		9DC9AEDB1D8AAF52008F9A5C /* AirplaneListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirplaneListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DC9AEDE1D8AAF52008F9A5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9DC9AEE01D8AAF52008F9A5C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 				9DC9AEEA1D8AAF52008F9A5C /* Info.plist */,
 				9DC9AF001D8AB94F008F9A5C /* Airport.swift */,
 				9DC9AF081D8AD004008F9A5C /* airportCellView.swift */,
+				949AC5311DBB9B2F00BBAC09 /* AirportDetailViewController.swift */,
 			);
 			path = AirplaneListApp;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 				9DC9AF011D8AB94F008F9A5C /* Airport.swift in Sources */,
 				9DC9AEDF1D8AAF52008F9A5C /* AppDelegate.swift in Sources */,
 				9DC9AEFF1D8AB57C008F9A5C /* AirplaneDatabaseHelper.swift in Sources */,
+				949AC5321DBB9B2F00BBAC09 /* AirportDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
