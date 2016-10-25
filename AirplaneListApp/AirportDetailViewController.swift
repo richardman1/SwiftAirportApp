@@ -19,12 +19,17 @@ class AirportDetailViewController: UIViewController, MKMapViewDelegate{
     @IBOutlet weak var iso_country: UILabel!
     @IBOutlet weak var distanceToAmsterdam: UILabel!
     
-        let CHURCHTOWN_LONGLAT = CLLocation(latitude: -43.5320, longitude:172.6362);
+        let AMSTERDAM_LONGLAT = CLLocation(latitude: 52.30833333, longitude:4.76805555);
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         airportMapview.delegate = self
         let AIRPORT_LONGLAT = CLLocation(latitude: (airport?.latitude)!, longitude: (airport?.longitude)!)
+        
+        let coordinates = [AMSTERDAM_LONGLAT.coordinate, AIRPORT_LONGLAT.coordinate]
+        
+        let geodesicPolyline = MKGeodesicPolyline(coordinates: coordinates, count: 2)
         
         // Do any additional setup after loading the view, typically from a nib.
         centerOnMap(map: airportMapview, location: AIRPORT_LONGLAT)
@@ -40,6 +45,9 @@ class AirportDetailViewController: UIViewController, MKMapViewDelegate{
         pinTop.title = airport?.name
         pinTop.subtitle = airport?.icao
             airportMapview.addAnnotation(pinTop)
+        let overlays = [geodesicPolyline]
+        
+        airportMapview.addOverlays(overlays)
 
         icao.text = airport?.icao
         name.text = airport?.name
@@ -87,4 +95,16 @@ class AirportDetailViewController: UIViewController, MKMapViewDelegate{
         }
     }
 
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let polyline = overlay as? MKPolyline else {
+            return MKOverlayRenderer()
+        }
+        
+        let renderer = MKPolylineRenderer(polyline: polyline)
+        renderer.lineWidth = 3.0
+        renderer.alpha = 0.5
+        renderer.strokeColor = UIColor.black.withAlphaComponent(1.0)
+        
+        return renderer
+    }
 }
