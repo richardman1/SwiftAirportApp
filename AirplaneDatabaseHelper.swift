@@ -50,9 +50,10 @@ class AirplaneDatabaseHelper: NSObject {
             // GPS coordinates
             let longitude : CLLocationDegrees = sqlite3_value_double(sqlite3_column_value(statement, 2))
             let latitude : CLLocationDegrees = sqlite3_value_double(sqlite3_column_value(statement, 3))
-            airport.location = CLLocationCoordinate2DMake(latitude, longitude)
-            airport.elevation = sqlite3_value_double(sqlite3_column_value(statement, 4))
             
+            airport.elevation = sqlite3_value_double(sqlite3_column_value(statement, 4))
+            airport.longitude = longitude
+            airport.latitude = latitude
             // Country and city
             airport.iso_country = String(cString: sqlite3_column_text(statement, 5));
             airport.municipality = String(cString: sqlite3_column_text(statement, 6));

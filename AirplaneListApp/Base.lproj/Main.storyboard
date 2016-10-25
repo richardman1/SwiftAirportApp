@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2553a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="8E4-47-cks">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="bZc-kS-eFe">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -16,10 +16,10 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="airportCell" rowHeight="209" id="VLc-3Z-62i" customClass="airportCellView" customModule="AirplaneListApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="209"/>
+                                <rect key="frame" x="0.0" y="92" width="375" height="209"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VLc-3Z-62i" id="gke-kX-RAZ">
-                                    <frame key="frameInset" width="375" height="208"/>
+                                    <frame key="frameInset" width="375" height="209"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pjenis" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vEI-RF-180">
@@ -52,10 +52,11 @@
                             <outlet property="delegate" destination="8E4-47-cks" id="XFo-d1-2Am"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="TpB-Pp-4rb"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FfH-KL-YGC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-500" y="-12"/>
+            <point key="canvasLocation" x="439.19999999999999" y="-12.143928035982009"/>
         </scene>
         <!--Airport Detail View Controller-->
         <scene sceneID="slj-GS-NZq">
@@ -69,6 +70,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="o2J-py-uqk">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="329" id="bEg-ZP-rvn"/>
+                                </constraints>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htP-20-K43">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="country" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iJ9-mf-9mW">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7vK-k2-rg4">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="icao" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggH-3J-b49">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -77,17 +98,48 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ggH-3J-b49" firstAttribute="top" secondItem="iia-1K-fiI" secondAttribute="bottom" constant="20" id="qdK-4z-X8C"/>
-                            <constraint firstItem="ggH-3J-b49" firstAttribute="centerX" secondItem="Jzs-eC-Pn3" secondAttribute="centerX" id="xCH-Fb-rjJ"/>
+                            <constraint firstItem="o2J-py-uqk" firstAttribute="leading" secondItem="Jzs-eC-Pn3" secondAttribute="leading" id="8Oz-ro-tna"/>
+                            <constraint firstItem="1Rm-8J-tkJ" firstAttribute="top" secondItem="o2J-py-uqk" secondAttribute="bottom" id="A6O-ZT-em5"/>
+                            <constraint firstItem="ggH-3J-b49" firstAttribute="centerX" secondItem="Jzs-eC-Pn3" secondAttribute="centerX" id="Iup-bI-aFp"/>
+                            <constraint firstItem="htP-20-K43" firstAttribute="top" secondItem="ggH-3J-b49" secondAttribute="bottom" constant="25" id="JZA-X8-8Bt"/>
+                            <constraint firstItem="7vK-k2-rg4" firstAttribute="centerX" secondItem="Jzs-eC-Pn3" secondAttribute="centerX" id="KNl-Qz-Flx"/>
+                            <constraint firstItem="htP-20-K43" firstAttribute="centerX" secondItem="Jzs-eC-Pn3" secondAttribute="centerX" id="TPn-zc-fre"/>
+                            <constraint firstAttribute="trailing" secondItem="o2J-py-uqk" secondAttribute="trailing" id="ThP-3p-9vT"/>
+                            <constraint firstItem="7vK-k2-rg4" firstAttribute="top" secondItem="iJ9-mf-9mW" secondAttribute="bottom" constant="25" id="X1r-4G-6Wi"/>
+                            <constraint firstItem="ggH-3J-b49" firstAttribute="top" secondItem="iia-1K-fiI" secondAttribute="bottom" constant="25" id="a9y-9i-Fwz"/>
+                            <constraint firstItem="iJ9-mf-9mW" firstAttribute="top" secondItem="htP-20-K43" secondAttribute="bottom" constant="25" id="hcP-tt-TTe"/>
+                            <constraint firstItem="iJ9-mf-9mW" firstAttribute="centerX" secondItem="Jzs-eC-Pn3" secondAttribute="centerX" id="rgt-S8-4TQ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="airportMapview" destination="o2J-py-uqk" id="hdN-65-dd7"/>
+                        <outlet property="distanceToAmsterdam" destination="7vK-k2-rg4" id="SBy-oh-ybG"/>
                         <outlet property="icao" destination="ggH-3J-b49" id="74v-u8-fTQ"/>
+                        <outlet property="iso_country" destination="iJ9-mf-9mW" id="zS5-Xf-qkw"/>
+                        <outlet property="name" destination="htP-20-K43" id="BNd-vT-gZk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gpp-Nq-pdJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="442" y="-14"/>
+            <point key="canvasLocation" x="1385" y="-12"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0Eh-nw-i6N">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bZc-kS-eFe" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="s79-Fw-JAn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="8E4-47-cks" kind="relationship" relationship="rootViewController" id="PnP-l7-mML"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZWa-ZO-H11" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-500" y="-12.143928035982009"/>
         </scene>
     </scenes>
 </document>

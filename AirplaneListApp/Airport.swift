@@ -13,7 +13,8 @@ class Airport: NSObject {
     
     var icao : String?
     var name : String?
-    var location : CLLocationCoordinate2D?
+    var latitude : Double?
+    var longitude : Double?
     var elevation : Double?
     var iso_country : String?
     var municipality : String?

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9473629E1DBF76630052D0A8 /* AirportPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9473629D1DBF76630052D0A8 /* AirportPin.swift */; };
 		949AC5321DBB9B2F00BBAC09 /* AirportDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 949AC5311DBB9B2F00BBAC09 /* AirportDetailViewController.swift */; };
 		9DC9AEDF1D8AAF52008F9A5C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9AEDE1D8AAF52008F9A5C /* AppDelegate.swift */; };
 		9DC9AEE11D8AAF52008F9A5C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC9AEE01D8AAF52008F9A5C /* ViewController.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9473629D1DBF76630052D0A8 /* AirportPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirportPin.swift; sourceTree = "<group>"; };
 		949AC5311DBB9B2F00BBAC09 /* AirportDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirportDetailViewController.swift; sourceTree = "<group>"; };
 		9DC9AEDB1D8AAF52008F9A5C /* AirplaneListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AirplaneListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DC9AEDE1D8AAF52008F9A5C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				9DC9AF001D8AB94F008F9A5C /* Airport.swift */,
 				9DC9AF081D8AD004008F9A5C /* airportCellView.swift */,
 				949AC5311DBB9B2F00BBAC09 /* AirportDetailViewController.swift */,
+				9473629D1DBF76630052D0A8 /* AirportPin.swift */,
 			);
 			path = AirplaneListApp;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9473629E1DBF76630052D0A8 /* AirportPin.swift in Sources */,
 				9DC9AF091D8AD004008F9A5C /* airportCellView.swift in Sources */,
 				9DC9AEE11D8AAF52008F9A5C /* ViewController.swift in Sources */,
 				9DC9AF011D8AB94F008F9A5C /* Airport.swift in Sources */,
