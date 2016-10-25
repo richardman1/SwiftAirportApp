@@ -19,6 +19,9 @@ class AirportDetailViewController: UIViewController, MKMapViewDelegate{
     @IBOutlet weak var iso_country: UILabel!
     @IBOutlet weak var distanceToAmsterdam: UILabel!
     
+    var flightpathPolyline: MKGeodesicPolyline!
+    var planeAnnotation: MKPointAnnotation!
+    var planeAnnotationPosition = 0
         let AMSTERDAM_LONGLAT = CLLocation(latitude: 52.30833333, longitude:4.76805555);
 
     override func viewDidLoad() {
@@ -27,33 +30,65 @@ class AirportDetailViewController: UIViewController, MKMapViewDelegate{
         airportMapview.delegate = self
         let AIRPORT_LONGLAT = CLLocation(latitude: (airport?.latitude)!, longitude: (airport?.longitude)!)
         
-        let coordinates = [AMSTERDAM_LONGLAT.coordinate, AIRPORT_LONGLAT.coordinate]
+        let coordinates = [AIRPORT_LONGLAT.coordinate, AMSTERDAM_LONGLAT.coordinate]
         
         let geodesicPolyline = MKGeodesicPolyline(coordinates: coordinates, count: 2)
-        
-        // Do any additional setup after loading the view, typically from a nib.
+        self.flightpathPolyline = geodesicPolyline
+
         centerOnMap(map: airportMapview, location: AIRPORT_LONGLAT)
-        let topAnnotation = AirportPin(title: "ChurchTown",
-                                         locationName: "Plaats in Nieuw Zeeland",
-                                         pinColor: UIColor.black.withAlphaComponent(1.0).cgColor,
-                                         coordinate: AIRPORT_LONGLAT.coordinate
-        )
-       airportMapview.addAnnotation(topAnnotation)
         
-        let pinTop = MKPointAnnotation()
-        pinTop.coordinate = AIRPORT_LONGLAT.coordinate
-        pinTop.title = airport?.name
-        pinTop.subtitle = airport?.icao
-            airportMapview.addAnnotation(pinTop)
+        let airportPin = MKPointAnnotation()
+        airportPin.coordinate = AIRPORT_LONGLAT.coordinate
+        airportPin.title = airport?.name
+        airportPin.subtitle = airport?.icao
+            airportMapview.addAnnotation(airportPin)
+        
+        let homePin = MKPointAnnotation()
+        homePin.coordinate = AMSTERDAM_LONGLAT.coordinate
+        homePin.title = "Amsterdam Schiphol"
+        homePin.subtitle = "EHAM"
+        airportMapview.addAnnotation(homePin)
+        
         let overlays = [geodesicPolyline]
-        
         airportMapview.addOverlays(overlays)
 
+        let annotation = MKPointAnnotation()
+        annotation.title = NSLocalizedString("Plane", comment: "Plane marker")
+        airportMapview.addAnnotation(annotation)
+        
+        self.planeAnnotation = annotation
+        self.updatePlanePosition()
+        
         icao.text = airport?.icao
         name.text = airport?.name
         iso_country.text = airport?.iso_country
         
             }
+    
+    func updatePlanePosition() {
+        let step = 5
+        guard planeAnnotationPosition + step < flightpathPolyline.pointCount
+            else { return }
+        
+        let points = flightpathPolyline.points()
+        self.planeAnnotationPosition += step
+        let nextMapPoint = points[planeAnnotationPosition]
+        
+        self.planeAnnotation.coordinate = MKCoordinateForMapPoint(nextMapPoint)
+        
+        perform("updatePlanePosition", with: nil, afterDelay: 0.03)
+    }
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        let planeIdentifier = "Plane"
+        
+        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: planeIdentifier)
+            ?? MKAnnotationView(annotation: annotation, reuseIdentifier: planeIdentifier)
+        
+        annotationView.image = UIImage(named: "airplane")
+        
+        return annotationView
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
