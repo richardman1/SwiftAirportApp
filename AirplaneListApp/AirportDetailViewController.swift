@@ -22,6 +22,7 @@ class AirportDetailViewController: UIViewController, MKMapViewDelegate{
     var flightpathPolyline: MKGeodesicPolyline!
     var planeAnnotation: MKPointAnnotation!
     var planeAnnotationPosition = 0
+    var planeDirection : CLLocationDirection!
         let AMSTERDAM_LONGLAT = CLLocation(latitude: 52.30833333, longitude:4.76805555);
 
     override func viewDidLoad() {
@@ -71,21 +72,25 @@ class AirportDetailViewController: UIViewController, MKMapViewDelegate{
             else { return }
         
         let points = flightpathPolyline.points()
+        let previousMapPoint = points[planeAnnotationPosition]
         self.planeAnnotationPosition += step
         let nextMapPoint = points[planeAnnotationPosition]
         
+        self.planeDirection = directionBetweenPoints(sourcePoint: previousMapPoint, nextMapPoint)
         self.planeAnnotation.coordinate = MKCoordinateForMapPoint(nextMapPoint)
         
         perform("updatePlanePosition", with: nil, afterDelay: 0.03)
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let planeIdentifier = "Plane"
         
         let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: planeIdentifier)
             ?? MKAnnotationView(annotation: annotation, reuseIdentifier: planeIdentifier)
         
         annotationView.image = UIImage(named: "airplane")
+        
+        annotationView.transform = mapView.transform.rotated(by: CGFloat(degreesToRadians(degrees: self.planeDirection)))
         
         return annotationView
     }
@@ -102,26 +107,26 @@ class AirportDetailViewController: UIViewController, MKMapViewDelegate{
         map.setRegion(region, animated: true)
     }
     
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        if let annotation = annotation as? AirportPin {
-            let identifier = "Pin"
-            var view: MKAnnotationView
-            
-            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
-                dequeuedView.annotation = annotation
-                view = dequeuedView
-            }else {
-                view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-                view.canShowCallout = true;
-                view.calloutOffset = CGPoint(x: -5, y:5)
-                view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-            }
-           // view.image = UIImage.init(named: "pin")
-            view.isDraggable = true
-            return view
-        }
-        return nil
-    }
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        if let annotation = annotation as? AirportPin {
+//            let identifier = "Pin"
+//            var view: MKAnnotationView
+//            
+//            if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) {
+//                dequeuedView.annotation = annotation
+//                view = dequeuedView
+//            }else {
+//                view = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+//                view.canShowCallout = true;
+//                view.calloutOffset = CGPoint(x: -5, y:5)
+//                view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+//            }
+//            view.image = UIImage.init(named: "pin")
+//            view.isDraggable = true
+//            return view
+//        }
+//        return nil
+//    }
     
     
     func mapView(_ mapView: MKMapView, annotationView: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
@@ -141,5 +146,19 @@ class AirportDetailViewController: UIViewController, MKMapViewDelegate{
         renderer.strokeColor = UIColor.black.withAlphaComponent(1.0)
         
         return renderer
+    }
+    
+    private func directionBetweenPoints(sourcePoint: MKMapPoint, _ destinationPoint: MKMapPoint) -> CLLocationDirection {
+        let x = destinationPoint.x - sourcePoint.x
+        let y = destinationPoint.y - sourcePoint.y
+        return radiansToDegrees(radians: atan2(y, x)).truncatingRemainder(dividingBy: 500)
+    }
+    
+    private func radiansToDegrees(radians: Double) -> Double {
+        return radians * 180 / M_PI
+    }
+    
+    private func degreesToRadians(degrees: Double) -> Double {
+        return degrees * M_PI / 180
     }
 }
